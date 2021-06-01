@@ -1,0 +1,36 @@
+variables:
+  MAVEN_OPTS: "-Dhttps.protocols=TLSv1.2 -Dmaven.repo.local=$CI_PROJECT_DIR/.m2/repository -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=WARN -Dorg.slf4j.simpleLogger.showDateTime=true -Djava.awt.headless=true"
+  MAVEN_CLI_OPTS: "--batch-mode --errors --fail-at-end --show-version -DinstallAtEnd=true -DdeployAtEnd=true"
+
+image: maven:latest
+
+cache:
+  paths:
+    - .m2/repository
+    - target/
+
+.verify: &verify
+  stage: test
+  script:
+    - 'mvn $MAVEN_CLI_OPTS verify'
+  except:
+    variables:
+      - $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+
+verify:
+  <<: *verify
+
+# To deploy packages from CI, create a ci_settings.xml file
+# For deploying packages to GitLab's Maven Repository: See https://docs.gitlab.com/ee/user/packages/maven_repository/index.html#create-maven-packages-with-gitlab-cicd for more details.
+# Please note: The GitLab Maven Repository is currently only available in GitLab Premium / Ultimate.
+# For `master` branch run `mvn deploy` automatically.
+#deploy:
+#  stage: deploy
+#  script:
+#    - if [ ! -f ci_settings.xml ];
+#        then echo "CI settings missing!";
+#      fi
+#    - 'mvn $MAVEN_CLI_OPTS deploy -s ci_settings.xml'
+#  only:
+#    variables:
+#      - $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
