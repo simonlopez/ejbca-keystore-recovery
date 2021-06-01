@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>fr.slopez.ejbca</groupId>
     <artifactId>keystore-password-recovery</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0-snapshot</version>
     <packaging>jar</packaging>
     
     <name>ejbca-keystore-recovery</name>
@@ -18,6 +18,11 @@
             <comments>A business-friendly OSS license</comments>
         </license>
     </licenses>
+    
+    <scm>
+        <developerConnection>scm:git:https://github.com/simonlopez/ejbca-keystore-recovery.git</developerConnection>
+      <tag>1.0</tag>
+  </scm>
     
     <developers>
         <developer>
