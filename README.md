@@ -16,7 +16,7 @@ $ java -jar --help
 ```
 ### Decode SoftCryptoToken
 
-To decode from SoftToken retreived in EJBCA database, you can use --token parameter with the BASE64 encoded Token directly:
+To decode from SoftToken retreived in EJBCA database (```tokenProps``` field of ```CryptoTokenData``` table), you can use --token parameter with the BASE64 encoded Token directly:
 ```
 $ java -jar keystore-password-recovery-1.0.jar --token="BASE64TOKEN"
 ```
